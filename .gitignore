@@ -1,0 +1,7 @@
+outputs/
+venv/
+__pycache__/
+*.tar.gz
+*.zip
+*.pt
+*.ckpt
