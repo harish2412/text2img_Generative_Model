@@ -141,7 +141,7 @@ This project implements a Text-to-image generation pipeline using:
 - PyTorch + HuggingFace Diffusers
 - HPC GPU cluster for fast inference
 
-Milestone 2 focuses on **model integration and baseline output generation**.
+Milestone 2 focuses on model integration and baseline output generation.
 
 ---
 
