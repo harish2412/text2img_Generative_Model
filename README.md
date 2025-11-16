@@ -31,7 +31,7 @@ text2img_Generative_Model/
 
 # Milestone 1 — Dataset Setup & First Generation
 
-### ✔ Goal  
+### Goal  
 Prepare COCO subset, build a text-embedding pipeline, and produce the first 5–10 generated images.
 
 ---
