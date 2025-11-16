@@ -134,12 +134,12 @@ Hallucinated background details
 ---
 
 ## Overview  
-This project implements a **text-to-image generation pipeline** using:
+This project implements a Text-to-image generation pipeline using:
 
-- **CLIP** (for text encoding)
-- **Stable Diffusion v1.5** (for conditional diffusion-based image generation)
-- **PyTorch + HuggingFace Diffusers**
-- **HPC GPU cluster** for fast inference
+- CLIP (for text encoding)
+- Stable Diffusion v1.5 (for conditional diffusion-based image generation)
+- PyTorch + HuggingFace Diffusers
+- HPC GPU cluster for fast inference
 
 Milestone 2 focuses on **model integration and baseline output generation**.
 
