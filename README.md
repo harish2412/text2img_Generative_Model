@@ -123,3 +123,124 @@ Wrong object count
 Distorted hands/limbs
 Incorrect spatial relations
 Hallucinated background details
+
+---
+
+
+# Text-to-Image Generation Using CLIP + Stable Diffusion  
+### Milestone 2 – Model Integration & Baseline Results  
+
+
+---
+
+## Overview  
+This project implements a **text-to-image generation pipeline** using:
+
+- **CLIP** (for text encoding)
+- **Stable Diffusion v1.5** (for conditional diffusion-based image generation)
+- **PyTorch + HuggingFace Diffusers**
+- **HPC GPU cluster** for fast inference
+
+Milestone 2 focuses on **model integration and baseline output generation**.
+
+---
+
+##  Milestone 2 Achievements  
+
+### ✔ Integrated Text Encoder  
+- Loaded CLIP tokenizer and text encoder  
+- Generated prompt embeddings  
+- Passed embeddings into Stable Diffusion via `prompt_embeds`
+
+### ✔ Integrated Diffusion Model  
+- Loaded Stable Diffusion v1.5  
+- Configured CUDA + GPU execution  
+- Used default PNDM scheduler, CFG=7.5, steps=30  
+
+### ✔ Generated Baseline Outputs  
+5 prompts were tested, including:
+- A dog in snow  
+- A futuristic city  
+- A bowl of fruit  
+- A mountain landscape  
+- A red sports car..
+
+Generated images saved at:
+
+```
+sample_outputs/milestone2/
+```
+
+### ✔ Included Logs  
+Terminal logs confirm pipeline execution and image saving.
+
+---
+
+## Repository Structure  
+
+```
+text2img_Generative_Model/
+│
+├── code/
+│   └── milestone2_baseline.py
+│
+├── sample_outputs/
+│   └── milestone2/
+│       ├── sample_1.png
+│       ├── sample_2.png
+│       ├── sample_3.png
+│       ├── sample_4.png
+│       └── sample_5.png....
+│
+└── README.md
+```
+
+---
+
+## Running Milestone 2 (HPC Instructions)
+
+### 1. Allocate GPU node  
+```bash
+salloc -p gpu --gres=gpu:1 --mem=16G -t 02:00:00
+```
+
+### 2. Load modules  
+```bash
+module load anaconda3/2024.06
+module load cuda/12.1.1
+```
+
+### 3. Activate environment  
+```bash
+conda activate text2img
+```
+
+### 4. Run the script  
+```bash
+cd code
+python milestone2_baseline.py
+```
+
+---
+
+##  Dependencies  
+Install once in your conda env:
+
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+pip install diffusers transformers accelerate safetensors pillow
+```
+
+---
+
+## Next Steps (Milestone 3)
+- Compute FID & Inception Score  
+- Compare schedulers, CFG scales, inference steps  
+- Perform qualitative & quantitative evaluation  
+
+---
+
+##  License  
+This project is developed for academic purposes under Northeastern University's Deep Learning for AI course.
+
+
