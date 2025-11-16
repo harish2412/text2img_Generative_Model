@@ -1,65 +1,96 @@
 import torch
 from diffusers import StableDiffusionPipeline
-from transformers import CLIPTokenizer, CLIPTextModel
 from PIL import Image
 import os
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 print("Using device:", device)
 
-# -----------------------------
-# 1. Load CLIP Text Encoder
-# -----------------------------
-print("Loading CLIP tokenizer + encoder...")
-tokenizer = CLIPTokenizer.from_pretrained("openai/clip-vit-large-patch14")
-text_encoder = CLIPTextModel.from_pretrained("openai/clip-vit-large-patch14").to(device)
-
-# -----------------------------
-# 2. Load Stable Diffusion
-# -----------------------------
+# -------------------------------------------------
+# 1. Load Stable Diffusion (with built-in tokenizer + text encoder)
+# -------------------------------------------------
 print("Loading Stable Diffusion pipeline...")
 pipe = StableDiffusionPipeline.from_pretrained(
     "runwayml/stable-diffusion-v1-5",
     torch_dtype=torch.float16,
 ).to(device)
 
-pipe.enable_attention_slicing()  # helps reduce memory usage
+pipe.enable_attention_slicing()
+pipe.unet.to(device)
+pipe.vae.to(device)
 
-# -----------------------------
-# 3. Helper function: Generate
-# -----------------------------
+pipe.safety_checker = lambda images, **kwargs: (images, [False])
+
+tokenizer = pipe.tokenizer
+text_encoder = pipe.text_encoder.to(device)
+
+# ------------------------------
+# 2. Encode prompt → embeddings
+# ------------------------------
+def get_text_embeddings(prompt):
+    # conditional embedding
+    inputs = tokenizer(
+        prompt,
+        padding="max_length",
+        max_length=tokenizer.model_max_length,
+        truncation=True,
+        return_tensors="pt"
+    ).to(device)
+
+    cond = text_encoder(inputs.input_ids)[0]
+
+    # unconditional embedding
+    uncond_inputs = tokenizer(
+        "",
+        padding="max_length",
+        max_length=tokenizer.model_max_length,
+        return_tensors="pt"
+    ).to(device)
+
+    uncond = text_encoder(uncond_inputs.input_ids)[0]
+
+    return uncond, cond
+
+# -------------------------------------------------
+# 3. Generate a single image
+# -------------------------------------------------
 def generate_image(prompt, guidance_scale=7.5, num_steps=30):
-    print(f"\nGenerating for prompt: {prompt}")
+    print(f"\nGenerating: {prompt}")
 
-    # Encode text → CLIP embedding
-    inputs = tokenizer(prompt, return_tensors="pt").to(device)
-    text_embeddings = text_encoder(**inputs).last_hidden_state
+    uncond, cond = get_text_embeddings(prompt)
 
-    # Run diffusion sampling
-    with torch.autocast("cuda"):
-        image = pipe(
-            prompt_embeds=text_embeddings,
+    with torch.autocast("cuda", dtype=torch.float16):
+        out = pipe(
+            prompt_embeds=cond,
+            negative_prompt_embeds=uncond,
             num_inference_steps=num_steps,
-            guidance_scale=guidance_scale
-        ).images[0]
+            guidance_scale=guidance_scale,
+            output_type="pil"
+        )
 
-    return image
+    return out.images[0]
 
-# -----------------------------
-# 4. Run baseline generation
-# -----------------------------
-output_dir = "../sample_outputs/milestone2/"
+# -------------------------------------------------
+# 4. Run Milestone 2 baseline generations
+# -------------------------------------------------
+output_dir = "sample_outputs/milestone2_output/"
 os.makedirs(output_dir, exist_ok=True)
 
 prompts = [
-    "A cute dog playing in snow",
-    "A futuristic city skyline at night",
+    "A red sports car speeding on a highway",
+    "A mountain landscape above the clouds",
+    "A cyberpunk street scene with neon lights",
+    "A magical forest with glowing mushrooms",
+    "A spaceship landing on Mars during sunset",
+    "A cozy living room with a fireplace",
     "A bowl of fresh fruit on a wooden table",
-    "A mountain landscape with clouds",
-    "A red sports car speeding on a highway"
+    "A brilliantly colored bird sitting on a tree branch",
+    "A sushi platter with artistic presentation",
+    "A futuristic city skyline at night"
 ]
 
-print("\nStarting baseline generation...")
+print("\nStarting Milestone 2 baseline generation...\n")
+
 for i, prompt in enumerate(prompts):
     img = generate_image(prompt)
     save_path = os.path.join(output_dir, f"sample_{i+1}.png")
@@ -67,4 +98,4 @@ for i, prompt in enumerate(prompts):
     print(f"Saved: {save_path}")
 
 print("\n=== Milestone 2 Complete ===")
-print("Generated images saved in: sample_outputs/milestone2/")
+print("Images saved in:", output_dir)
