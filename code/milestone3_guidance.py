@@ -8,7 +8,7 @@ import subprocess
 
 def setup_logger(name: str) -> logging.Logger:
     script_path = Path(__file__).resolve()
-    repo_root = script_path.parent.parent  # .../text2img
+    repo_root = script_path.parent.parent
     logs_dir = repo_root / "logs"
     logs_dir.mkdir(parents=True, exist_ok=True)
 
@@ -41,7 +41,6 @@ MODEL_A_DIR = "../sample_outputs/milestone1_output"
 MODEL_B_DIR = "../sample_outputs/milestone2_output"
 REPORT_PATH = "../sample_outputs/milestone3_report.json"
 
-# ✅ number of images to use for metrics
 N = 100
 
 
@@ -68,7 +67,6 @@ def run_eval(model_name, gen_dir, n: int):
     if err:
         logger.info(f"{model_name} errors:\n{err}")
 
-    # Parse FID and IS from stdout
     fid = None
     is_mean = None
     is_std = None
@@ -82,7 +80,6 @@ def run_eval(model_name, gen_dir, n: int):
                 pass
         if line.startswith("Inception Score"):
             try:
-                # "Inception Score: X ± Y"
                 parts = line.split(":")[1].strip().split("±")
                 is_mean = float(parts[0])
                 is_std = float(parts[1])

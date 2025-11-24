@@ -52,7 +52,7 @@ def run_eval(model_name, gen_dir):
         "eval_fid_is.py",
         "--val_csv", VAL_CSV,
         "--gen_dir", gen_dir,
-        "--n", "100"          # <<< changed from 10 to 100
+        "--n", "100"
     ]
 
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -72,7 +72,6 @@ def run_eval(model_name, gen_dir):
             fid = float(line.split("FID:")[1])
         if line.startswith("Inception Score"):
             try:
-                # Format: "Inception Score: X ± Y"
                 parts = line.split(":")[1].strip().split("±")
                 is_mean = float(parts[0])
                 is_std = float(parts[1])

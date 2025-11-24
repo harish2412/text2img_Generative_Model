@@ -11,7 +11,6 @@ from diffusers import (
 
 
 def setup_logger(name: str) -> logging.Logger:
-    # repo_root = .../text2img
     script_path = Path(__file__).resolve()
     repo_root = script_path.parent.parent
     logs_dir = repo_root / "logs"
@@ -54,10 +53,8 @@ pipe = StableDiffusionPipeline.from_pretrained(
     torch_dtype=dtype,
 ).to(device)
 
-# Use better sampler
 pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
 
-# Speed / memory tweaks
 pipe.enable_attention_slicing()
 try:
     pipe.enable_xformers_memory_efficient_attention()
@@ -65,7 +62,6 @@ try:
 except Exception as e:
     logger.info(f"Could not enable xFormers attention: {e}")
 
-# Disable NSFW checker so it never blanks images
 pipe.safety_checker = lambda images, **kwargs: (images, [False])
 
 logger.info("Attempting to load x4 upscaler (optional)...")
@@ -96,11 +92,10 @@ def generate_image(
     num_steps: int = 40,
     height: int = 512,
     width: int = 512,
-    use_upscaler: bool = False,  # keep False to avoid black images
+    use_upscaler: bool = False,
 ):
     logger.info(f"Generating for prompt='{prompt}' guidance={guidance_scale}")
 
-    # Base SD generation (this is stable and should NOT be black)
     with torch.autocast(
         device_type=device,
         dtype=torch.float16,
@@ -117,7 +112,6 @@ def generate_image(
 
     img = out.images[0]
 
-    # Optional upscaler – disabled by default since it caused issues before
     if use_upscaler and HAS_UPSCALER:
         logger.info("Running x4 upscaler...")
         with torch.autocast(
@@ -136,7 +130,7 @@ def generate_image(
     return img
 
 # -------------------------------------------------
-# 3. Run Milestone 2 generations (100 images)
+# 3. Run Milestone 2 generations
 # -------------------------------------------------
 import csv
 
@@ -144,8 +138,7 @@ repo_root = Path(__file__).resolve().parent.parent
 output_dir = repo_root / "sample_outputs" / "milestone2_output"
 os.makedirs(output_dir, exist_ok=True)
 
-# Load 100 captions from your dataset CSV
-CSV_PATH = "../data/manifests/coco_train1k.csv"   # or coco_train100.csv if you created one
+CSV_PATH = "../data/manifests/coco_train1k.csv"
 
 prompts = []
 with open(CSV_PATH, "r") as f:
