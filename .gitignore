@@ -1,7 +1,7 @@
-outputs/
 venv/
+logs/
+sample_outputs/
+training_data/
+checkpoints/
 __pycache__/
-*.tar.gz
-*.zip
-*.pt
-*.ckpt
+.ipynb_checkpoints/
