@@ -1,13 +1,28 @@
 {
+    "config": {
+        "n_samples": 1000,
+        "val_csv": "../data/manifests/coco_train1k.csv"
+    },
     "modelA": {
-        "FID": 215.6385,
-        "IS_mean": 6.6586,
-        "IS_std": 0.662
+        "name": "Milestone 1 baseline",
+        "gen_dir": "../sample_outputs/milestone1_output",
+        "FID": 72.3225,
+        "IS_mean": 22.8508,
+        "IS_std": 1.6321
     },
     "modelB": {
-        "FID": 215.3984,
-        "IS_mean": 6.7653,
-        "IS_std": 1.0194
+        "name": "Milestone 2 improved",
+        "gen_dir": "../sample_outputs/milestone2_output",
+        "FID": 73.7589,
+        "IS_mean": 23.322,
+        "IS_std": 1.8462
     },
-    "timestamp": "2025-11-23 23:26:45.039356"
+    "modelC": {
+        "name": "Attention-finetuned, 4k steps",
+        "gen_dir": "../sample_outputs/modelC_finetuned_4k",
+        "FID": 76.4798,
+        "IS_mean": 22.8465,
+        "IS_std": 2.5522
+    },
+    "timestamp": "2025-12-05 02:45:35.110983"
 }

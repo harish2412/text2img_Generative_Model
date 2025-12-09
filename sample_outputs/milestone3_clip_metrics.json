@@ -1,0 +1,22 @@
+{
+  "val_csv": "/home/padmanabhan.h/projects/text2img/data/manifests/coco_train1k.csv",
+  "max_n_captions": 1000,
+  "diversity_max_n": 200,
+  "models": {
+    "A": {
+      "clip_similarity_mean": 0.31186483985185626,
+      "clip_similarity_std": 0.0295633365821859,
+      "clip_diversity_mean_1_minus_cos": 0.4529845416545868
+    },
+    "B": {
+      "clip_similarity_mean": 0.3043605190515518,
+      "clip_similarity_std": 0.02937862636070853,
+      "clip_diversity_mean_1_minus_cos": 0.461448609828949
+    },
+    "C": {
+      "clip_similarity_mean": 0.30824240544438364,
+      "clip_similarity_std": 0.03203733822421172,
+      "clip_diversity_mean_1_minus_cos": 0.4906330406665802
+    }
+  }
+}
