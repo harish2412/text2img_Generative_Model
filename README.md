@@ -1,4 +1,4 @@
-# 🚀 Text-to-Image Generation Using Diffusion Models
+#  Text-to-Image Generation Using Diffusion Models
 
 ### Multi-Model Pipeline • COCO 2017 • Stable Diffusion v1.5 • Attention Fine-Tuning • FID / IS / CLIP Evaluation
 
@@ -6,7 +6,7 @@
 
 ------------------------------------------------------------------------
 
-## 📌 Overview
+##  Overview
 
 Modern text-to-image systems are used across advertising, product
 rendering, gaming, and education --- yet **70% of generated images fail
@@ -18,7 +18,7 @@ with integrated evaluation metrics.
 
 ------------------------------------------------------------------------
 
-## 🎯 Goals
+##  Goals
 
 -   Build a reproducible **text-to-image generation pipeline**\
 -   Develop and compare **three generative models** (A, B, C)\
@@ -33,7 +33,7 @@ with integrated evaluation metrics.
 
 ------------------------------------------------------------------------
 
-## 🧩 Multi-Model System Architecture
+##  Multi-Model System Architecture
 
 ### **Model A --- Baseline SD v1.5**
 
@@ -61,7 +61,7 @@ with integrated evaluation metrics.
 
 ------------------------------------------------------------------------
 
-## 📊 Dataset Summary
+##  Dataset Summary
 
 -   **118,000 COCO training images**\
 -   **590,000 captions**\
@@ -78,7 +78,7 @@ with integrated evaluation metrics.
 
 ------------------------------------------------------------------------
 
-## ⚙️ Pipeline Flow
+##  Pipeline Flow
 
     COCO Dataset 
        → Preprocessing 
@@ -90,7 +90,7 @@ with integrated evaluation metrics.
 
 ------------------------------------------------------------------------
 
-## 🏁 Model Comparison Table
+##  Model Comparison Table
 
   Parameter         Model A   Model B                Model C
   ----------------- --------- ---------------------- ------------------------
@@ -103,9 +103,9 @@ with integrated evaluation metrics.
 
 ------------------------------------------------------------------------
 
-# 🏆 **Quantitative Results**
+#  **Quantitative Results**
 
-## 📉 **FID Score (Lower = Better)**
+##  **FID Score (Lower = Better)**
 
   Model   FID
   ------- -----------
@@ -113,13 +113,13 @@ with integrated evaluation metrics.
   **B**   **73.75**
   **C**   **76.48**
 
-➡️ Model A retains the best realism.\
-➡️ Fine-tuning in Model C improves alignment but reduces realism (higher
+ Model A retains the best realism.\
+ Fine-tuning in Model C improves alignment but reduces realism (higher
 FID).
 
 ------------------------------------------------------------------------
 
-## 📈 **Inception Score (Higher = Better)**
+##  **Inception Score (Higher = Better)**
 
   Model   IS
   ------- ---------------------------
@@ -129,7 +129,7 @@ FID).
 
 ------------------------------------------------------------------------
 
-## 🧠 **CLIP Similarity (Text--Image Alignment)**
+##  **CLIP Similarity (Text--Image Alignment)**
 
   Model   CLIP Score
   ------- ------------
@@ -137,12 +137,12 @@ FID).
   **B**   **0.303**
   **C**   **0.308**
 
-➡️ Model C improves semantic correctness in complex prompts, despite
+ Model C improves semantic correctness in complex prompts, despite
 similar numeric scores.
 
 ------------------------------------------------------------------------
 
-## 🎨 **CLIP Diversity (Higher = More Varied Outputs)**
+##  **CLIP Diversity (Higher = More Varied Outputs)**
 
   Model   Diversity
   ------- -----------------------
@@ -152,7 +152,7 @@ similar numeric scores.
 
 ------------------------------------------------------------------------
 
-# 🧠 Compositional Benchmark (Semantic Understanding)
+#  Compositional Benchmark (Semantic Understanding)
 
 Complex multi-object prompts tested:\
 - "Two dogs sitting on a green sofa"\
@@ -167,11 +167,11 @@ Complex multi-object prompts tested:\
   **B**   Medium --- improved clarity, weak relationships
   **C**   **Best --- \~40% improvement over A/B**
 
-➡️ Attention fine-tuning improves semantic binding dramatically.
+ Attention fine-tuning improves semantic binding dramatically.
 
 ------------------------------------------------------------------------
 
-# ⏱ Speed & Efficiency
+#  Speed & Efficiency
 
   Model   Speed (sec/img)   VRAM
   ------- ----------------- --------
@@ -181,7 +181,7 @@ Complex multi-object prompts tested:\
 
 ------------------------------------------------------------------------
 
-# 🖼 Sample Prompts & Images
+#  Sample Prompts & Images
 
 Included in project documentation:\
 - Red sports car on a highway\
@@ -195,7 +195,7 @@ Included in project documentation:\
 
 ------------------------------------------------------------------------
 
-# 🧪 Quality Assurance
+#  Quality Assurance
 
 -   FID, IS, CLIP metric validation\
 -   Visual inspection for artifacts\
@@ -205,7 +205,7 @@ Included in project documentation:\
 
 ------------------------------------------------------------------------
 
-# ⚠️ Ethical Considerations
+#  Ethical Considerations
 
 -   COCO dataset biases (gender, geography)\
 -   Risks of misuse: misinformation, deepfakes\
@@ -216,7 +216,7 @@ Included in project documentation:\
 
 ------------------------------------------------------------------------
 
-# 🛠 Technical Trade-Offs
+#  Technical Trade-Offs
 
 -   Training only 15% of UNet → **85% semantic improvement**\
 -   DPM-Solver → **40% faster & higher quality**\
@@ -224,7 +224,7 @@ Included in project documentation:\
 
 ------------------------------------------------------------------------
 
-# 💥 Failure Analysis
+#  Failure Analysis
 
 Common issues:\
 - Color flips\
@@ -239,7 +239,7 @@ Ablation study:\
 
 ------------------------------------------------------------------------
 
-# 🧭 Future Work
+#  Future Work
 
 -   Sketch / reference / voice input support\
 -   Real-time generation (\<1s)\
@@ -248,7 +248,7 @@ Ablation study:\
 
 ------------------------------------------------------------------------
 
-# ✅ Conclusion
+#  Conclusion
 
 -   **Model A (Baseline):** Best realism (FID)\
 -   **Model B (Improved):** Best clarity (IS)\
@@ -259,6 +259,13 @@ powerful, adaptive, multi-model text-to-image system.
 
 ------------------------------------------------------------------------
 
-# 📜 License
+#  License
 
-Research/academic use only. Contact authors for other permissions.
+Gayatri Nair 
+Harish Padmanabhan     
+Harrish Ebi Francis Peter Joshua 
+Priyanka Raj Rajendran
+
+IE7615 18014 Neural Networks/Deep Learning
+
+
